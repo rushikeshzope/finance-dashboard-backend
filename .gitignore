@@ -1,0 +1,10 @@
+node_modules/
+.env
+dist/
+test.db
+dev.db
+*.db
+*.db-journal
+.DS_Store
+*.log
+coverage/

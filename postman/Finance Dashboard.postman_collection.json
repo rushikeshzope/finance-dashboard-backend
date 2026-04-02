@@ -1,0 +1,887 @@
+{
+  "info": {
+    "_postman_id": "b0adbc23-4ad6-4321-b096-bcc0fda5f112",
+    "name": "Finance Dashboard",
+    "description": "A complete test collection for the Finance Dashboard Node.js/Express API running on `http://localhost:3000`.\n\n## Getting Started\n\n1. Run the Login request inside the **Auth** folder. The post-response script will automatically save the `token` collection variable.\n2. All protected routes use `{{token}}` as the Bearer token via collection-level auth.\n3. For role-based tests, run **Login as Viewer** in the **Role Testing** folder to populate `{{viewer_token}}`.\n\n## Collection Variables\n\n| Variable | Description |\n|---|---|\n| `token` | Admin/default user JWT, set automatically by the Login request |\n| `viewer_token` | Viewer-role JWT, set automatically by Login as Viewer |\n\n## Auth\n\nCollection-level auth is set to **Bearer Token** using `{{token}}`. All requests in the Auth and Health folders override this with **No Auth**.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "33612001",
+    "_collection_link": "https://go.postman.co/collection/33612001-b0adbc23-4ad6-4321-b096-bcc0fda5f112?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set(\"token\", pm.response.json().token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@demo.com\",\n  \"password\": \"admin123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"name\": \"Test User\", \"email\": \"test@demo.com\", \"password\": \"test123\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Generated from cURL: curl -X POST http://localhost:3000/api/auth/register -H \"Content-Type: application/json\" --data '{\"name\": \"Test User\", \"email\": \"test@demo.com\", \"password\": \"test123\"}' --no-auth"
+          },
+          "response": []
+        }
+      ],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Auth folder - no auth needed"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/health",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "health"
+              ]
+            },
+            "description": "Generated from cURL: curl -X GET http://localhost:3000/health"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/users",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "users"
+              ]
+            },
+            "description": "Generated from cURL: curl -X GET http://localhost:3000/api/users"
+          },
+          "response": []
+        },
+        {
+          "name": "Update User Role",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"role\": \"ANALYST\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/users/{{userId}}/role",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "users",
+                "{{userId}}",
+                "role"
+              ]
+            },
+            "description": "Generated from cURL: curl -X PATCH http://localhost:3000/api/users/:id/role -H \"Content-Type: application/json\" --data '{\"role\": \"ANALYST\"}'"
+          },
+          "response": []
+        },
+        {
+          "name": "Update User Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"status\": \"INACTIVE\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/users/{{userId}}/status",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "users",
+                "{{userId}}",
+                "status"
+              ]
+            },
+            "description": "Generated from cURL: curl -X PATCH http://localhost:3000/api/users/:id/status -H \"Content-Type: application/json\" --data '{\"status\": \"INACTIVE\"}'"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Transactions",
+      "item": [
+        {
+          "name": "Create Transaction",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set(\"transactionId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"amount\": 50000, \"type\": \"INCOME\", \"category\": \"Salary\", \"date\": \"2026-04-01\", \"notes\": \"April salary\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/transactions",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "transactions"
+              ]
+            },
+            "description": "Generated from cURL: curl -X POST http://localhost:3000/api/transactions -H \"Content-Type: application/json\" --data '{\"amount\": 50000, \"type\": \"INCOME\", \"category\": \"Salary\", \"date\": \"2026-04-01\", \"notes\": \"April salary\"}'"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Transactions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/transactions",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "transactions"
+              ]
+            },
+            "description": "Generated from cURL: curl -X GET http://localhost:3000/api/transactions"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Transactions by Type",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/transactions?type=INCOME",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "transactions"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "INCOME"
+                }
+              ]
+            },
+            "description": "Generated from cURL: curl -X GET \"http://localhost:3000/api/transactions?type=INCOME\""
+          },
+          "response": []
+        },
+        {
+          "name": "Get Transactions by Category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/transactions?category=Salary",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "transactions"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "Salary"
+                }
+              ]
+            },
+            "description": "Generated from cURL: curl -X GET \"http://localhost:3000/api/transactions?category=Salary\""
+          },
+          "response": []
+        },
+        {
+          "name": "Get Transactions by Date Range",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/transactions?from=2026-01-01&to=2026-04-30",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "transactions"
+              ],
+              "query": [
+                {
+                  "key": "from",
+                  "value": "2026-01-01"
+                },
+                {
+                  "key": "to",
+                  "value": "2026-04-30"
+                }
+              ]
+            },
+            "description": "Generated from cURL: curl -X GET \"http://localhost:3000/api/transactions?from=2026-01-01&to=2026-04-30\""
+          },
+          "response": []
+        },
+        {
+          "name": "Get Transactions Paginated",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/transactions?page=1&limit=5",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "transactions"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "5"
+                }
+              ]
+            },
+            "description": "Generated from cURL: curl -X GET \"http://localhost:3000/api/transactions?page=1&limit=5\""
+          },
+          "response": []
+        },
+        {
+          "name": "Search Transactions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/transactions?search=salary",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "transactions"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "salary"
+                }
+              ]
+            },
+            "description": "Generated from cURL: curl -X GET \"http://localhost:3000/api/transactions?search=salary\""
+          },
+          "response": []
+        },
+        {
+          "name": "Get Transaction by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/transactions/{{transactionId}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "transactions",
+                "{{transactionId}}"
+              ]
+            },
+            "description": "Generated from cURL: curl -X GET http://localhost:3000/api/transactions/:id"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Transaction",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"amount\": 55000, \"notes\": \"Updated salary\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/transactions/{{transactionId}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "transactions",
+                "{{transactionId}}"
+              ]
+            },
+            "description": "Generated from cURL: curl -X PUT http://localhost:3000/api/transactions/:id -H \"Content-Type: application/json\" --data '{\"amount\": 55000, \"notes\": \"Updated\"}'"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Transaction",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/transactions/{{transactionId}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "transactions",
+                "{{transactionId}}"
+              ]
+            },
+            "description": "Generated from cURL: curl -X DELETE http://localhost:3000/api/transactions/:id"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Get Summary",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/dashboard/summary",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "dashboard",
+                "summary"
+              ]
+            },
+            "description": "Generated from cURL: curl -X GET http://localhost:3000/api/dashboard/summary"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/dashboard/categories",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "dashboard",
+                "categories"
+              ]
+            },
+            "description": "Generated from cURL: curl -X GET http://localhost:3000/api/dashboard/categories"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Trends",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/dashboard/trends",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "dashboard",
+                "trends"
+              ]
+            },
+            "description": "Generated from cURL: curl -X GET http://localhost:3000/api/dashboard/trends"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Recent",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/dashboard/recent",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "dashboard",
+                "recent"
+              ]
+            },
+            "description": "Generated from cURL: curl -X GET http://localhost:3000/api/dashboard/recent"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/dashboard/stats",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "dashboard",
+                "stats"
+              ]
+            },
+            "description": "Generated from cURL: curl -X GET http://localhost:3000/api/dashboard/stats"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Role Testing",
+      "item": [
+        {
+          "name": "Login as Viewer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.collectionVariables.set(\"viewer_token\", pm.response.json().token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\": \"viewer@demo.com\", \"password\": \"viewer123\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Generated from cURL: curl -X POST http://localhost:3000/api/auth/login -H \"Content-Type: application/json\" --data '{\"email\": \"viewer@demo.com\", \"password\": \"viewer123\"}'"
+          },
+          "response": []
+        },
+        {
+          "name": "[403] Create Transaction as Viewer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Should return 403 Forbidden\", function () {",
+                  "    pm.response.to.have.status(403);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "disabled": false
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{viewer_token}}",
+                "disabled": false
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"amount\": 50000, \"type\": \"INCOME\", \"category\": \"Salary\", \"date\": \"2026-04-01\", \"notes\": \"April salary\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/transactions",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "transactions"
+              ]
+            },
+            "description": "Generated from cURL: curl -X POST http://localhost:3000/api/transactions -H \"Content-Type: application/json\" -H \"Authorization: Bearer {{viewer_token}}\" --data '{\"amount\": 50000, \"type\": \"INCOME\", \"category\": \"Salary\", \"date\": \"2026-04-01\", \"notes\": \"April salary\"}'"
+          },
+          "response": []
+        },
+        {
+          "name": "[200] Get Transactions as Viewer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Should return 200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{viewer_token}}",
+                "disabled": false
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/transactions",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "transactions"
+              ]
+            },
+            "description": "Generated from cURL: curl -X GET http://localhost:3000/api/transactions -H \"Authorization: Bearer {{viewer_token}}\""
+          },
+          "response": []
+        },
+        {
+          "name": "[403] Get Dashboard Summary as Viewer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Should return 403 Forbidden\", function () {",
+                  "    pm.response.to.have.status(403);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{viewer_token}}",
+                "disabled": false
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/dashboard/summary",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "dashboard",
+                "summary"
+              ]
+            },
+            "description": "Generated from cURL: curl -X GET http://localhost:3000/api/dashboard/summary -H \"Authorization: Bearer {{viewer_token}}\""
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{viewer_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "requests": {},
+        "exec": [
+          "// Collection-level pre-request script placeholder"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "viewer_token",
+      "value": ""
+    },
+    {
+      "key": "transactionId",
+      "value": ""
+    },
+    {
+      "key": "userId",
+      "value": ""
+    }
+  ]
+}
