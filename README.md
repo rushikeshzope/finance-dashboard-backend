@@ -2,6 +2,21 @@
 
 A production-quality finance dashboard backend. This project serves as a robust, heavily-componentized API for managing financial transactions, users, and dashboard analytics, demonstrating best practices in enterprise architecture, automated testing, and security.
 
+## 🚀 Live Deployment
+
+This backend is deployed on **Railway** at:
+
+| Resource | URL |
+|---|---|
+| **Swagger UI (API Docs)** | [https://finance-dashboard-backend-production-aad2.up.railway.app/api-docs](https://finance-dashboard-backend-production-aad2.up.railway.app/api-docs) |
+| **Health Check** | [https://finance-dashboard-backend-production-aad2.up.railway.app/health](https://finance-dashboard-backend-production-aad2.up.railway.app/health) |
+
+## 🎥 Demo Video
+
+Watch the full demo here: [Google Drive – Demo Video](https://drive.google.com/drive/folders/1QqtEVqLmvCAwtsL6JPF83gOI8NvsTFrN?usp=sharing)
+
+---
+
 ## Major Features
 - **Service-Oriented Architecture (SOA)**: Clean separation of Routes, Controllers, and Services.
 - **Automated Integration Testing**: Fully verified isolated test suites using Vitest and Supertest.
@@ -21,6 +36,7 @@ A production-quality finance dashboard backend. This project serves as a robust,
 | **Vitest & Supertest**| Testing | Extremely fast test runner with the industry standard HTTP assertion tool. |
 | **Zod** | Validation | Type-safe schema validation to catch malformed payloads early. |
 | **Helmet & Rate Limit**| Security | Defends against common web vulnerabilities and brute-force attacks. |
+| **Railway** | Deployment | Zero-config cloud deployment with built-in PostgreSQL support. |
 
 ## Quick Start
 ```bash
@@ -94,7 +110,7 @@ Location:
 | ADMIN | ✅ Yes | ✅ Yes | ✅ Yes | ✅ Yes |
 
 ## API Routes Overview
-*Full interactive documentation available via Swagger UI (usually at `/api-docs`).*
+*Full interactive documentation available via Swagger UI at [/api-docs](https://finance-dashboard-backend-production-aad2.up.railway.app/api-docs).*
 
 ### Auth
 - `POST /api/auth/register`
