@@ -10,8 +10,12 @@ const options = {
     },
     servers: [
       {
-        url: 'http://localhost:3000',
-        description: 'Development server',
+        url: process.env.NODE_ENV === 'production'
+          ? 'https://finance-dashboard-backend-production-aad2.up.railway.app'
+          : 'http://localhost:3000',
+        description: process.env.NODE_ENV === 'production'
+          ? 'Production server'
+          : 'Development server',
       },
     ],
     components: {
@@ -29,7 +33,7 @@ const options = {
       },
     ],
   },
-  apis: ['./src/routes/*.js'], // Path to the API docs
+  apis: ['./src/routes/*.js'],
 };
 
 export const swaggerSpec = swaggerJsdoc(options);
