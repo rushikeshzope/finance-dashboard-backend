@@ -16,7 +16,7 @@ A production-quality finance dashboard backend. This project serves as a robust,
 | Technology | Purpose | Why chosen |
 |---|---|---|
 | **Node.js / Express** | Runtime & Framework | Fast, ubiquitous, and lightweight. |
-| **Prisma (SQLite)** | Database & ORM | Zero-setup local development, robust typed query building. |
+| **Prisma (PostgreSQL)** | Database & ORM | Production-ready storage, robust typed query building. |
 | **json2csv & csv-parser** | Data Pipeline | Handles robust bulk financial file uploads and downloads. |
 | **Vitest & Supertest**| Testing | Extremely fast test runner with the industry standard HTTP assertion tool. |
 | **Zod** | Validation | Type-safe schema validation to catch malformed payloads early. |
@@ -34,7 +34,7 @@ npm run dev
 ```
 
 ## Running Tests
-Tests run in total isolation natively using a temporary `test.db` SQLite database to protect your development data.
+Tests run in total isolation natively using a temporary PostgreSQL test database to protect your development data.
 ```bash
 # Run the test suite once
 npm run test
