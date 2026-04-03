@@ -10,12 +10,12 @@ const options = {
     },
     servers: [
       {
-        url: process.env.NODE_ENV === 'production'
-          ? 'https://finance-dashboard-backend-production-aad2.up.railway.app'
-          : 'http://localhost:3000',
-        description: process.env.NODE_ENV === 'production'
-          ? 'Production server'
-          : 'Development server',
+        url: 'https://finance-dashboard-backend-production-aad2.up.railway.app',
+        description: 'Production server',
+      },
+      {
+        url: 'http://localhost:3000',
+        description: 'Development server',
       },
     ],
     components: {
