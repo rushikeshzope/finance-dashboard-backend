@@ -11,10 +11,6 @@ This backend is deployed on **Railway** at:
 | **Swagger UI (API Docs)** | [https://finance-dashboard-backend-production-aad2.up.railway.app/api-docs](https://finance-dashboard-backend-production-aad2.up.railway.app/api-docs) |
 | **Health Check** | [https://finance-dashboard-backend-production-aad2.up.railway.app/health](https://finance-dashboard-backend-production-aad2.up.railway.app/health) |
 
-## 🎥 Demo Video
-
-Watch the full demo here: [Google Drive – Demo Video](https://drive.google.com/drive/folders/1QqtEVqLmvCAwtsL6JPF83gOI8NvsTFrN?usp=sharing)
-
 ---
 
 ## Major Features
